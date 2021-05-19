@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time</title>
+</head>
+
+<body>
+    current time:
+    <div id="clock"></div>
+    Given time:
+    <div id="clockgiven"></div>
+    <script>
+        function displayClock() {
+            curr = new Date();
+            document.getElementById("clock").innerHTML = curr;
+        }
+        var t = setInterval(displayClock, 500);
+
+        function fn1() {
+            // document.getElementById("clock").style.color = "red";
+            var hr = document.getElementById("hour").value;
+            var min = document.getElementById("minute").value;
+            var sec = document.getElementById("second").value;
+            year = curr.getFullYear();
+            month = curr.getMonth();
+            day = curr.getDay();
+            date = curr.getDate();
+            givenDate= new Date(year, month, date, hr, min, sec);
+            document.getElementById("clockgiven").innerHTML=givenDate;
+            var x = setInterval(changeColor, 500);
+        }
+        function changeColor(){
+            if(curr.getTime() >= givenDate.getTime()){
+                 document.getElementById("clock").style.color="red";
+                clearInterval(t);
+            }
+            else{
+                document.getElementById("clock").style.color="black";
+            }
+        }
+    </script>
+    <h1>Future time to compare with</h1>
+    <h5>After inputing value take mouse out of the input box</h5>
+    <form onmouseleave="fn1()" id="myForm" action="/action_page.php">
+        <span> hour: <input id="hour" type="text"></span>
+        <span> minutes: <input id="minute" type="text"></span>
+        <span> seconds: <input id="second" type="text"></span>
+    </form>
+</body>
+
+</html>
