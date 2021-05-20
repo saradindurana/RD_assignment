@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>number</title>
+    <script>
+        var t;
+        function heavydriver() {
+            var entered = document.getElementById("number").value;
+            if (entered >= 10) {
+                alert("Please enter value less than 10");
+            }
+            else if (entered > 0) {
+                var p = document.getElementById("disp");
+                var current = p.childNodes.length;
+                var i;
+                var val;
+                if (entered > current) {
+                    stop();
+                    val = entered - current;
+                    var count = 0;
+                    t = setInterval(add, 1000);
+                    function add() {
+                        if (count == val) {
+                            clearInterval(t);
+                        }
+                        else {
+                            var p = document.getElementById("disp");
+                            var n = p.childNodes.length + 1;
+                            var c = document.createElement("img");
+                            var nc = n.toString(10);
+                            var fname = "fig" + nc + ".png"
+                            c.src = fname;
+                            c.height = "100";
+                            c.width = "100";
+                            p.appendChild(c);
+                            count = count + 1;
+                        }
+                    }
+                }
+                else if (entered < current) {
+                    stop();
+                    val = current - entered;
+                    var count = 0;
+                    t = setInterval(remove, 1000);
+                    function remove() {
+                        if (count == val) {
+                            clearInterval(t);
+                        }
+                        else {
+                            var p = document.getElementById("disp");
+                            var chlist = p.childNodes;
+                            var n = chlist.length;
+                            p.removeChild(chlist[n - 1]);
+                            count = count + 1;
+                        }
+                    }
+                }
+            }
+        }
+        function stop() {
+            clearTimeout(t);
+
+        }
+    </script>
+</head>
+
+<body>
+    <div id="disp"></div>
+    <input id="number" type="text" onkeyup="heavydriver()" />
+</body>
+
+</html>
